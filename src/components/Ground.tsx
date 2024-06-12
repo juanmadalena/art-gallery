@@ -10,7 +10,7 @@ type GroundProps = {
 function Ground({ size }: GroundProps) {
     const [ref] = usePlane(() => ({ 
         rotation: [- Math.PI / 2, 0, 0], 
-        position: [0, 0, 0]
+        position: [0, -0.5, 0]
     }))
 
 

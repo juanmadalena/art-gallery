@@ -26,11 +26,18 @@ function Player() {
     useFrame(() => {
         camera.position.copy(new Vector3(position.current[0], position.current[1], position.current[2]))
 
+        const direction = new Vector3()
+
         const frontVector = new Vector3(
             0,
             0,
             (keyPressed.moveForward ? -1 : 0) + (keyPressed.moveBackward ? 1 : 0)
         )
+
+        // if (keyPressed.moveLeft || keyPressed.moveRight) {
+        //     if (keyPressed.moveRight && keyPressed.moveLeft) return
+        //     camera.rotation.y = keyPressed.moveLeft ? camera.rotation.y + 0.05 : camera.rotation.y - 0.05       
+        // }
 
         const sideVector = new Vector3(
             (keyPressed.moveLeft ? 1 : 0) + (keyPressed.moveRight ? -1 : 0),
@@ -38,14 +45,13 @@ function Player() {
             0
         )
 
-        const direction = new Vector3()
-
         direction
             .subVectors(frontVector, sideVector)
             .normalize()
             .multiplyScalar(SPEED)
             .applyEuler(camera.rotation)
 
+        
         api.velocity.set(direction.x, 0, direction.z)
     })
 
