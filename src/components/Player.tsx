@@ -33,7 +33,7 @@ function Player() {
         )
 
         const sideVector = new Vector3(
-            (keyPressed.moveRight ? 1 : 0) + (keyPressed.moveLeft ? -1 : 0),
+            (keyPressed.moveLeft ? 1 : 0) + (keyPressed.moveRight ? -1 : 0),
             0,
             0
         )
@@ -44,6 +44,7 @@ function Player() {
             .subVectors(frontVector, sideVector)
             .normalize()
             .multiplyScalar(SPEED)
+            .applyEuler(camera.rotation)
 
         api.velocity.set(direction.x, 0, direction.z)
     })
