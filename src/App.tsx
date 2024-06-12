@@ -14,7 +14,7 @@ interface DeviceOrientationEventiOS extends DeviceOrientationEvent {
 
 function App() {
 
-  const [permission, setPermission] = useState<'granted' | 'denied' | 'prompt' | undefined>('denied')
+  const [permission, setPermission] = useState<string>('denied')
 
   const SIZE = 10
   const WALL_HEIGHT = 6
@@ -26,6 +26,7 @@ function App() {
   useEffect(() => {    
     if(iOS) {
       setPermission('prompt')
+      alert('iOS')
       requestPermission()
       .then(response => {
         if(response === 'granted') {
@@ -36,6 +37,9 @@ function App() {
         }else{
           setPermission('denied')
         }
+      })
+      .catch((e) => {
+        setPermission(JSON.stringify(e))
       })
     }
   }, [])
