@@ -26,7 +26,6 @@ function App() {
   useEffect(() => {    
     if(iOS) {
       setPermission('prompt')
-      alert('iOS')
       requestPermission()
       .then(response => {
         if(response === 'granted') {
@@ -39,6 +38,7 @@ function App() {
         }
       })
       .catch((e) => {
+        alert(e.message)
         setPermission(JSON.stringify(e))
       })
     }
