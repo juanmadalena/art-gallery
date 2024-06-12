@@ -5,7 +5,7 @@ import Player from "./components/Player"
 import POV from "./components/POV"
 import Wall from "./components/Wall"
 import Ceiling from "./components/Ceiling"
-import { Suspense, useEffect, useState } from "react"
+import { Suspense, useState } from "react"
 import MoveButtons from "./components/MoveButtons"
 
 interface DeviceOrientationEventiOS extends DeviceOrientationEvent {
