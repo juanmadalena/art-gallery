@@ -1,5 +1,7 @@
 import { useBox } from "@react-three/cannon";
 import { WallMaterial } from "../textures/wallTexture";
+import { Mesh } from "three";
+import { Ref } from "react";
 
 
 type WallProps = {
@@ -20,7 +22,7 @@ function Wall({ position, height, width, rotation = [0, 0, 0] }: WallProps) {
 
     return (
         <>
-            <mesh ref={ref}>
+            <mesh ref={ref as Ref<Mesh>}>
                 <boxGeometry args={[ width, height, 0.00001 ]} attach={'geometry'} />
                 <meshBasicMaterial attach={'material'} 
                     map={WallMaterial.map} 
