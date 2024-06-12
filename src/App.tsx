@@ -6,7 +6,7 @@ import POV from "./components/POV"
 import Wall from "./components/Wall"
 import Ceiling from "./components/Ceiling"
 import { Suspense } from "react"
-import { Preload } from "@react-three/drei"
+import MoveButtons from "./components/MoveButtons"
 
 function App() {
 
@@ -14,12 +14,12 @@ function App() {
   const WALL_HEIGHT = 6
 
   return (
-    <>
-      <Canvas style={{height:'100vh', width:'100vw', border:'solid 1px black', marginTop:0}}>
+    <main className="select-none">
+      <MoveButtons />
+      <Canvas style={{height:'100vh', width:'100vw', border:'solid 1px black', marginTop:0}} className="select-none">
         <Suspense fallback={null}>
-            <Preload all />
-            <POV />
             <Physics>
+              <POV />
               <Ceiling size={SIZE} />
               <Wall position={[0, 0.5, SIZE/2]} height={WALL_HEIGHT} width={SIZE} />
               <Wall position={[0, 0.5, -(SIZE/2)]} height={WALL_HEIGHT} width={SIZE} />
@@ -30,7 +30,7 @@ function App() {
             </Physics>
         </Suspense>  
       </Canvas>
-    </>
+    </main>
   )
 }
 

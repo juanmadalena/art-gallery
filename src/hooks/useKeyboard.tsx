@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
 function actionByKey(key: string) {
-    // console.log('key', key)
     const keys: { [key: string]: string } = {
         KeyW: 'moveForward',
         KeyS: 'moveBackward',
