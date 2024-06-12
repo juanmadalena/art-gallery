@@ -22,35 +22,38 @@ function App() {
   const requestPermission = (DeviceOrientationEvent as unknown as DeviceOrientationEventiOS).requestPermission;
 
   const iOS = typeof requestPermission === 'function';
-
-  useEffect(() => {    
-    if(iOS) {
-      setPermission('prompt')
-      requestPermission()
-      .then(response => {
-        if(response === 'granted') {
-          setPermission('granted')
-          window.addEventListener('deviceorientation', (event) => {
-            console.log(event.alpha, event.beta, event.gamma)
-          })
-        }else{
-          setPermission('denied')
-        }
-      })
-      .catch((e) => {
-        alert(e.message)
-        setPermission(JSON.stringify(e))
-      })
-    }
-  }, [])
+  
+  const request = () => {
+    if(!iOS) return
+    requestPermission()
+    .then(response => {
+      if(response === 'granted') {
+        setPermission('granted')
+        window.addEventListener('deviceorientation', (event) => {
+          console.log(event.alpha, event.beta, event.gamma)
+        })
+      }else{
+        setPermission('denied')
+      }
+    })
+    .catch((e) => {
+      alert(e.message)
+      setPermission(JSON.stringify(e))
+    })
+  }
 
 
 
   return (
     <main className="select-none">
-      <h1 style={{height:'10dvh'}}>
-        {permission}
-      </h1>
+      <div style={{height:'10dvh'}}>
+        <h1>
+          {permission}
+        </h1>
+        <button onClick={request}>
+          Permission
+        </button>
+      </div>
       <MoveButtons />
       <Canvas style={{height:'90dvh', width:'100dvw', border:'solid 1px black', marginTop:0}} className="select-none">
         <Suspense fallback={null}>
