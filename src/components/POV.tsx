@@ -10,9 +10,9 @@ function POV() {
         <>
             {
                 isMobile ?
-                    <PointerLockControls camera={camera} domElement={gl.domElement} maxPolarAngle={Math.PI / 2} />
-                :
                     <DeviceOrientationControls camera={camera} />
+                :
+                    <PointerLockControls camera={camera} domElement={gl.domElement} maxPolarAngle={Math.PI / 2} />
             }
         </>
 
