@@ -5,18 +5,50 @@ import Player from "./components/Player"
 import POV from "./components/POV"
 import Wall from "./components/Wall"
 import Ceiling from "./components/Ceiling"
-import { Suspense } from "react"
+import { Suspense, useEffect, useState } from "react"
 import MoveButtons from "./components/MoveButtons"
 
+interface DeviceOrientationEventiOS extends DeviceOrientationEvent {
+  requestPermission?: () => Promise<'granted' | 'denied'>;
+}
+
 function App() {
+
+  const [permission, setPermission] = useState<'granted' | 'denied' | 'prompt' | undefined>('denied')
 
   const SIZE = 10
   const WALL_HEIGHT = 6
 
+  const requestPermission = (DeviceOrientationEvent as unknown as DeviceOrientationEventiOS).requestPermission;
+
+  const iOS = typeof requestPermission === 'function';
+
+  useEffect(() => {    
+    if(iOS) {
+      setPermission('prompt')
+      requestPermission()
+      .then(response => {
+        if(response === 'granted') {
+          setPermission('granted')
+          window.addEventListener('deviceorientation', (event) => {
+            console.log(event.alpha, event.beta, event.gamma)
+          })
+        }else{
+          setPermission('denied')
+        }
+      })
+    }
+  }, [])
+
+
+
   return (
     <main className="select-none">
+      <h1 style={{height:'10dvh'}}>
+        {permission}
+      </h1>
       <MoveButtons />
-      <Canvas style={{height:'100vh', width:'100vw', border:'solid 1px black', marginTop:0}} className="select-none">
+      <Canvas style={{height:'90dvh', width:'100dvw', border:'solid 1px black', marginTop:0}} className="select-none">
         <Suspense fallback={null}>
             <Physics>
               <POV />
