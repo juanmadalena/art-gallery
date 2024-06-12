@@ -1,4 +1,4 @@
-import { DeviceOrientationControls, OrbitControls, PointerLockControls } from "@react-three/drei";
+import { DeviceOrientationControls, PointerLockControls } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import useDetectDevice from "../hooks/useDetectDevice";
 
@@ -10,7 +10,7 @@ function POV() {
         <>
             {
                 isMobile ?
-                    <OrbitControls camera={camera} domElement={gl.domElement} />
+                    <PointerLockControls camera={camera} domElement={gl.domElement} maxPolarAngle={Math.PI / 2} />
                 :
                     <DeviceOrientationControls camera={camera} />
             }
