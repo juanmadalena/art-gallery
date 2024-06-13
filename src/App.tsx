@@ -5,7 +5,7 @@ import Player from "./components/Player"
 import POV from "./components/POV"
 import Wall from "./components/Wall"
 import Ceiling from "./components/Ceiling"
-import { Suspense, useContext, useState } from "react"
+import { Suspense, useContext } from "react"
 import MoveButtons from "./components/MoveButtons"
 import Painting from "./components/Painting"
 import { LoaderContext } from "./contexts/loaderContext/LoaderContext"
@@ -13,7 +13,7 @@ import useOrientationPermission from "./hooks/useOrientationPermission"
 
 function App() {
 
-  const { request, permission } = useOrientationPermission()
+  const { request } = useOrientationPermission()
   const { loading, init, initializeGallery } = useContext(LoaderContext)
 
   const SIZE = 10

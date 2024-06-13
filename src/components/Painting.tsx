@@ -8,10 +8,9 @@ type PaintingProps = {
     height: number
     width: number
     rotation?: [number, number, number]
-    onRenderCompleted?: () => void
 }
 
-function Painting({url, position, height, width, rotation, onRenderCompleted}: PaintingProps){
+function Painting({url, position, height, width, rotation}: PaintingProps){
 
     const { addPainting, removePainting } = useContext(LoaderContext)
 
