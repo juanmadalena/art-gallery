@@ -65,6 +65,7 @@ function MoveButtons() {
                 className={"select-none"}
                 style={{position:'absolute', bottom:30, left:30, zIndex:20, display:"grid", gridTemplateColumns: "repeat(3, 1fr)", gap:4}}
             >
+                <h1>{permission}</h1>
                 {
                     KEYS.map((key, index) => {
                         if (!isMobile && permission !== 'granted' && (key.code === 'ArrowLeft' || key.code === 'ArrowRight')) return null
