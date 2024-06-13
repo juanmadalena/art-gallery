@@ -18,9 +18,6 @@ function useOrientationPermission() {
       .then(response => {
         if(response === 'granted') {
           setPermission('granted')
-          window.addEventListener('deviceorientation', (event) => {
-            console.log(event.alpha, event.beta, event.gamma)
-          })
         }else{
           setPermission('denied')
         }
