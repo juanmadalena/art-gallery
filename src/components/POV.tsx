@@ -15,9 +15,9 @@ function POV() {
         <>
             {
                 paintings?.length > 0 || init ? null : isMobile ?
+                    permission === 'granted' &&
                     <DeviceOrientationControls camera={camera} deviceOrientation={{ alpha: window.orientation, beta: 100, gamma: 0 }} />
                 :
-                    permission === 'granted' &&
                     <PointerLockControls camera={camera} domElement={gl.domElement} maxPolarAngle={Math.PI / 2} />
             }
         </>
