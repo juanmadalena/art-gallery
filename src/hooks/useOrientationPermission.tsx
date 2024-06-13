@@ -6,7 +6,7 @@ interface DeviceOrientationEventiOS extends DeviceOrientationEvent {
 
 function useOrientationPermission() {
 
-    const [permission, setPermission] = useState<string>('prompt');
+    const [permission, setPermission] = useState<'prompt' | 'granted' | 'denied' | 'error'>('prompt');
 
     const requestPermission = (DeviceOrientationEvent as unknown as DeviceOrientationEventiOS).requestPermission;
 
@@ -24,7 +24,7 @@ function useOrientationPermission() {
       })
       .catch((e) => {
         alert(e.message)
-        setPermission(JSON.stringify(e))
+        setPermission('error')
       })
     }
 
