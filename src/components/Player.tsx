@@ -1,13 +1,16 @@
 import { Triplet, useSphere } from "@react-three/cannon"
 import { useFrame, useThree } from "@react-three/fiber"
-import { useEffect, useRef } from "react"
+import { useContext, useEffect, useRef } from "react"
 import { Vector3 } from "three"
 import useKeyboard from "../hooks/useKeyboard"
+import { LoaderContext } from "../contexts/loaderContext/LoaderContext"
 
 const SPEED = 5
 
 
 function Player() {
+
+    const { init } = useContext(LoaderContext)
 
     const { keyPressed } = useKeyboard()
     const { camera } = useThree()
@@ -25,6 +28,7 @@ function Player() {
 
     useFrame(() => {
         camera.position.copy(new Vector3(position.current[0], position.current[1], position.current[2]))
+        if (init) return
 
         const direction = new Vector3()
 
