@@ -1,8 +1,9 @@
-import useDetectDevice from "../hooks/useDetectDevice"
+import { useContext } from "react"
+import { PermissionContext } from "../contexts/permissionContext/PermissionContext"
 
-function MoveButtons() {
+function RotationButtons() {
 
-    const { isMobile } = useDetectDevice()
+    const { permission } = useContext(PermissionContext)
 
     const handleAction = (e: React.MouseEvent<HTMLButtonElement, MouseEvent> | React.TouchEvent<HTMLButtonElement>, key: string, action: 'keydown' | 'keyup') => {
         e.stopPropagation()
@@ -14,40 +15,26 @@ function MoveButtons() {
 
     const KEYS = [
         {
-            code: 'KeyW',
-            desktopTitle: 'W',
-            mobileTitle: '↑',
+            code: 'ArrowLeft',
+            mobileTitle: '↪️',
             column: 2,
             row: 1,
         },
         {
-            code: 'KeyS',
-            desktopTitle: 'S',
-            mobileTitle: '↓',
-            column: 2,
-            row: 2,
-        },
-        {
-            code: 'KeyA',
-            desktopTitle: 'A',
-            mobileTitle: '←',
-            column: 1,
-            row: 2,
-        },
-        {
-            code: 'KeyD',
-            desktopTitle: 'D',
-            mobileTitle: '→',
+            code: 'ArrowRight',
+            mobileTitle: '↩️',
             column: 3,
-            row: 2,
-        }
+            row: 1,
+        },
     ]
+
+    if(permission == 'granted') return null
 
     return (
         <>
             <div 
                 className={"select-none"}
-                style={{position:'absolute', bottom:30, left:30, zIndex:20, display:"grid", gridTemplateColumns: "repeat(3, 1fr)", gap:4}}
+                style={{position:'absolute', bottom:30, right:30, zIndex:20, display:"grid", gridTemplateColumns: "repeat(3, 1fr)", gap:4}}
             >
                 {
                     KEYS.map((key, index) => {
@@ -62,7 +49,7 @@ function MoveButtons() {
                                 className={"h-10 w-10 rounded-md text-white cursor-pointer font-semibold bg-opacity-50 bg-neutral-800 active:bg-opacity-90"}
                             >
                                 {
-                                    isMobile ? key.mobileTitle : key.desktopTitle
+                                    key.mobileTitle
                                 }
                             </button>
                         )
@@ -73,4 +60,4 @@ function MoveButtons() {
     )
 }
 
-export default MoveButtons;
+export default RotationButtons;

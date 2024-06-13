@@ -10,11 +10,14 @@ import MoveButtons from "./components/MoveButtons"
 import Painting from "./components/Painting"
 import { LoaderContext } from "./contexts/loaderContext/LoaderContext"
 import { PermissionContext } from "./contexts/permissionContext/PermissionContext"
+import RotationButtons from "./components/RotationButtons"
+import useDetectDevice from "./hooks/useDetectDevice"
 
 function App() {
 
   const { requestOrientationPermission } = useContext(PermissionContext)
   const { loading, init, initializeGallery } = useContext(LoaderContext)
+  const { isMobile } = useDetectDevice()
 
   const SIZE = 10
   const WALL_HEIGHT = 6
@@ -58,6 +61,10 @@ function App() {
           </div>
         }
         <MoveButtons />
+        {
+          isMobile &&
+          <RotationButtons />
+        }
         <Canvas id="canvas" style={{height:'100dvh', width:'100dvw', border:'solid 1px black', marginTop:0, zIndex:1}} className="select-none">
           <Suspense fallback={null}>
               <Physics>
