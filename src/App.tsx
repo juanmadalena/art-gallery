@@ -9,18 +9,18 @@ import { Suspense, useContext } from "react"
 import MoveButtons from "./components/MoveButtons"
 import Painting from "./components/Painting"
 import { LoaderContext } from "./contexts/loaderContext/LoaderContext"
-import useOrientationPermission from "./hooks/useOrientationPermission"
+import { PermissionContext } from "./contexts/permissionContext/PermissionContext"
 
 function App() {
 
-  const { request } = useOrientationPermission()
+  const { requestOrientationPermission } = useContext(PermissionContext)
   const { loading, init, initializeGallery } = useContext(LoaderContext)
 
   const SIZE = 10
   const WALL_HEIGHT = 6
 
   const handleInit = () => {
-    request()
+    requestOrientationPermission()
     initializeGallery()
   }
 

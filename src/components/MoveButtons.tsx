@@ -1,10 +1,11 @@
+import { useContext } from "react"
 import useDetectDevice from "../hooks/useDetectDevice"
-import useOrientationPermission from "../hooks/useOrientationPermission"
+import { PermissionContext } from "../contexts/permissionContext/PermissionContext"
 
 function MoveButtons() {
 
     const { isMobile } = useDetectDevice()
-    const { permission } = useOrientationPermission()
+    const { permission } = useContext(PermissionContext)
 
     const handleAction = (e: React.MouseEvent<HTMLButtonElement, MouseEvent> | React.TouchEvent<HTMLButtonElement>, key: string, action: 'keydown' | 'keyup') => {
         e.stopPropagation()

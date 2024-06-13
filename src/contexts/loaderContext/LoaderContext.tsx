@@ -22,7 +22,6 @@ export const LoaderContextProvider = ({children}: any) => {
     const [state, dispatch] = useReducer(loaderReducer, initialLoaderContext)
 
     const addPainting = (paintingId: string) => {
-        console.log('addPainting', state.paintings)
         dispatch({type: 'ADD_PAINTING', payload: paintingId})
     }
 

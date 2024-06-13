@@ -1,12 +1,15 @@
 import App from "./App"
 import { LoaderContextProvider } from "./contexts/loaderContext/LoaderContext"
+import { PermissionContextProvider } from "./contexts/permissionContext/PermissionContext"
 
 
 function AppContextProvider(){
     return (
-        <LoaderContextProvider>
-            <App />
-        </LoaderContextProvider>
+        <PermissionContextProvider>
+            <LoaderContextProvider>
+                <App />
+            </LoaderContextProvider>
+        </PermissionContextProvider>
     )
 }
 

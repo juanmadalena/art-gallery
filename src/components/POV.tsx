@@ -3,13 +3,13 @@ import { useThree } from "@react-three/fiber";
 import useDetectDevice from "../hooks/useDetectDevice";
 import { useContext } from "react";
 import { LoaderContext } from "../contexts/loaderContext/LoaderContext";
-import useOrientationPermission from "../hooks/useOrientationPermission";
+import { PermissionContext } from "../contexts/permissionContext/PermissionContext";
 
 function POV() {
     const { camera, gl } = useThree();
     const { isMobile } = useDetectDevice();
     const { init, } = useContext(LoaderContext)
-    const { permission } = useOrientationPermission()
+    const { permission } = useContext(PermissionContext)
 
     return (
         <>
