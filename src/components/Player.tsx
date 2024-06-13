@@ -4,6 +4,7 @@ import { useContext, useEffect, useRef } from "react"
 import { Vector3 } from "three"
 import useKeyboard from "../hooks/useKeyboard"
 import { LoaderContext } from "../contexts/loaderContext/LoaderContext"
+import useDetectDevice from "../hooks/useDetectDevice"
 
 const SPEED = 5
 
@@ -11,6 +12,7 @@ const SPEED = 5
 function Player() {
 
     const { init } = useContext(LoaderContext)
+    const { isMobile } = useDetectDevice()
 
     const { keyPressed } = useKeyboard()
     const { camera } = useThree()
@@ -38,10 +40,11 @@ function Player() {
             (keyPressed.moveForward ? -1 : 0) + (keyPressed.moveBackward ? 1 : 0)
         )
 
-        // if (keyPressed.moveLeft || keyPressed.moveRight) {
-        //     if (keyPressed.moveRight && keyPressed.moveLeft) return
-        //     camera.rotation.y = keyPressed.moveLeft ? camera.rotation.y + 0.05 : camera.rotation.y - 0.05       
-        // }
+        if (keyPressed.rotateLeft || keyPressed.rotateRight) {
+            if(!isMobile) return
+            if (keyPressed.rotateRight && keyPressed.rotateLeft) return
+            camera.rotation.y = keyPressed.rotateLeft ? camera.rotation.y + 0.05 : camera.rotation.y - 0.05       
+        }
 
         const sideVector = new Vector3(
             (keyPressed.moveLeft ? 1 : 0) + (keyPressed.moveRight ? -1 : 0),

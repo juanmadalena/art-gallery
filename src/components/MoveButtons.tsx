@@ -1,8 +1,10 @@
 import useDetectDevice from "../hooks/useDetectDevice"
+import useOrientationPermission from "../hooks/useOrientationPermission"
 
 function MoveButtons() {
 
     const { isMobile } = useDetectDevice()
+    const { permission } = useOrientationPermission()
 
     const handleAction = (e: React.MouseEvent<HTMLButtonElement, MouseEvent> | React.TouchEvent<HTMLButtonElement>, key: string, action: 'keydown' | 'keyup') => {
         e.stopPropagation()
@@ -40,7 +42,21 @@ function MoveButtons() {
             mobileTitle: '→',
             column: 3,
             row: 2,
-        }
+        },
+        {
+            code: 'ArrowLeft',
+            desktopTitle: '',
+            mobileTitle: '↪️',
+            column: 1,
+            row: 1,
+        },
+        {
+            code: 'ArrowRight',
+            desktopTitle: '',
+            mobileTitle: '↩️',
+            column: 3,
+            row: 1,
+        },
     ]
 
     return (
@@ -51,21 +67,24 @@ function MoveButtons() {
             >
                 {
                     KEYS.map((key, index) => {
-                        return (
-                            <button 
-                                key={index}
-                                onTouchStart={(e) => handleAction(e, key.code, "keydown")}
-                                onTouchEnd={(e) => handleAction(e,key.code, "keyup")}
-                                onMouseDown={(e) => handleAction(e, key.code, "keydown")} 
-                                onMouseUp={(e) => handleAction(e,key.code, "keyup")} 
-                                style={{gridColumn: key.column, gridRow: key.row,}}
-                                className={"h-10 w-10 rounded-md text-white cursor-pointer font-semibold bg-opacity-50 bg-neutral-800 active:bg-opacity-90"}
-                            >
-                                {
-                                    isMobile ? key.mobileTitle : key.desktopTitle
-                                }
-                            </button>
-                        )
+                        if (!isMobile && permission !== 'granted' && (key.code === 'ArrowLeft' || key.code === 'ArrowRight')) return null
+                        else {
+                            return (
+                                <button 
+                                    key={index}
+                                    onTouchStart={(e) => handleAction(e, key.code, "keydown")}
+                                    onTouchEnd={(e) => handleAction(e,key.code, "keyup")}
+                                    onMouseDown={(e) => handleAction(e, key.code, "keydown")} 
+                                    onMouseUp={(e) => handleAction(e,key.code, "keyup")} 
+                                    style={{gridColumn: key.column, gridRow: key.row,}}
+                                    className={"h-10 w-10 rounded-md text-white cursor-pointer font-semibold bg-opacity-50 bg-neutral-800 active:bg-opacity-90"}
+                                >
+                                    {
+                                        isMobile ? key.mobileTitle : key.desktopTitle
+                                    }
+                                </button>
+                            )
+                        }
                     })
                 }
             </div>

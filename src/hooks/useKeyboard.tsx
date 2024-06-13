@@ -6,6 +6,8 @@ function actionByKey(key: string) {
         KeyS: 'moveBackward',
         KeyA: 'moveLeft',
         KeyD: 'moveRight',
+        ArrowLeft: 'rotateLeft',
+        ArrowRight: 'rotateRight',
     }
     return keys[key]
 }
@@ -17,6 +19,8 @@ function useKeyboard(){
         moveBackward: false,
         moveLeft: false,
         moveRight: false,
+        rotateLeft: false,
+        rotateRight: false,
     })
     
     const handleKeyDown = useCallback((e: KeyboardEvent) => {
