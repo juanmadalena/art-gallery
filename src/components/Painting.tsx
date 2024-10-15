@@ -30,7 +30,7 @@ function Painting({url, position, height, width, rotation}: PaintingProps){
         <>
         {
             paintingMaterial &&
-            <mesh position={position} rotation={rotation}>
+            <mesh position={position} rotation={rotation} onClick={ (e) => console.log(e)}>
                 <planeGeometry args={[ width, height, 1 ]} attach={'geometry'} />
                 <meshBasicMaterial attach={'material'} map={paintingMaterial?.map}  />
             </mesh>

@@ -12,15 +12,21 @@ import { LoaderContext } from "./contexts/loaderContext/LoaderContext"
 import { PermissionContext } from "./contexts/permissionContext/PermissionContext"
 import RotationButtons from "./components/RotationButtons"
 import useDetectDevice from "./hooks/useDetectDevice"
+import gsap from "gsap"
+import { useGSAP } from "@gsap/react"
+import { LoadingComponent } from "./components/LoadingComponent"
+
+
+gsap.registerPlugin()
+
 
 function App() {
-
-  const { requestOrientationPermission } = useContext(PermissionContext)
-  const { loading, init, initializeGallery } = useContext(LoaderContext)
-  const { isMobile } = useDetectDevice()
-
   const SIZE = 10
   const WALL_HEIGHT = 6
+
+  const { requestOrientationPermission } = useContext(PermissionContext)
+  const { init, initializeGallery } = useContext(LoaderContext)
+  const { isMobile } = useDetectDevice()
 
   const handleInit = () => {
     requestOrientationPermission()
@@ -29,32 +35,57 @@ function App() {
 
   return (
       <main className="select-none">
-        {
-          loading &&
-          <div 
-            style={{height:'100dvh', width:'100dvw', zIndex:100}}
-            className="absolute top-0 left-0 z-100 p-2 bg-neutral-800 text-white"
-          >
-            <div className="h-full flex justify-center items-center">
-              <h1 className="text-2xl">
-                Cargando...
-              </h1>
-            </div>
-          </div>
-        }
+        <LoadingComponent />
         {
           init &&
           <div 
             style={{height:'100dvh', width:'100dvw', zIndex:50}}
-            className="absolute top-0 left-0 z-100 p-2 bg-neutral-800 text-white bg-opacity-80"
+            className="absolute top-0 left-0 z-100 p-2 bg-neutral-900 text-white bg-opacity-95"
           >
             <div className="h-full flex justify-center items-center flex-col">
               <div>
-                <h1 className="text-2xl text-center">
-                  ¡Hola!
+                <h1 className="text-4xl text-center mb-12 pb-4">
+                  Welcome to the gallery!
                 </h1>
-                <div className="flex justify-center items-center h-full">
-                  <button onClick={handleInit} className="bg-blue-950 text-white rounded-md p-3">Empezar</button>
+                <p className="text-lg mb-4">Instructions:</p>
+                <ul className="list-disc list-inside">
+                  <li className="text-regular mb-2">Use the buttons 
+                    {
+                      isMobile ? 
+                      <span className="font-semibold"> 
+                        {" "}
+                        below
+                        {" "}
+                      </span>
+                      :
+                      <span className="font-semibold"> 
+                        {" "}
+                        W, A, S, D
+                        {" "}
+                      </span>
+                    }
+                      to move around the gallery.</li>
+                    {
+                      !isMobile &&
+                      <li className="text-regular mb-2">Click on the screen and use the mouse to look around.</li>
+                    }
+                    {
+                      isMobile &&
+                      <>
+                        <li className="text-regular mb-2">Allow the device to use motion sensors.</li>
+                        <li className="text-regular mb-2">Move your phone to see the gallery</li>
+                      </>
+
+                    }
+                  {/* <li className="text-regular mb-2">Click on the paintings to get more details</li> */}
+                  <li className="text-regular mb-2">Enjoy the paintings!</li>
+                </ul>
+                <div className="flex justify-center items-center mt-12">
+                  <button onClick={handleInit} className="bg-blue-600 text-white rounded-md py-3 px-6 hover:bg-blue-800 transition-colors">
+                    <span className="font-semibold">                    
+                      Start
+                    </span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -77,10 +108,10 @@ function App() {
                   url={"https://res.cloudinary.com/dffkajufp/image/upload/v1718239191/art/Claude_Monet_-_Woman_with_a_Parasol_-_Madame_Monet_and_Her_Son_-_Google_Art_Project_1_co9sjo.webp"}
                   position={[2.5, 1.2, -(SIZE/2 - 0.01)]} height={3} width={2} />
                 <Painting 
-                  url={"https://res.cloudinary.com/dffkajufp/image/upload/q_41/v1718239417/art/A1jK4RCeZNL._AC_UF894_1000_QL80__1_of9yga.webp"}
+                  url={"https://res.cloudinary.com/dffkajufp/image/upload/v1729028099/art/sorolla_gglmjx.jpg"}
                   position={[0, 1.2, (SIZE/2 - 0.01)]} 
                   height={3} 
-                  width={2} 
+                  width={5} 
                   rotation={[0, Math.PI, 0]}  
                 />
                 <Painting 
@@ -104,7 +135,7 @@ function App() {
                 <Player />
                 <Ground size={SIZE} />
               </Physics>
-          </Suspense>  
+          </Suspense>
         </Canvas>
       </main>
   )

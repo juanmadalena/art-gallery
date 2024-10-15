@@ -16,7 +16,6 @@ function useOrientationPermission() {
       if(!iOS) return setPermission('notIOS')
       requestPermission()
       .then(response => {
-        alert(response)
         if(response === 'granted') {
           setPermission('granted')
         }else{
@@ -24,7 +23,6 @@ function useOrientationPermission() {
         }
       })
       .catch((e) => {
-        alert(e.message)
         setPermission('error')
       })
     }

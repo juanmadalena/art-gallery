@@ -32,7 +32,6 @@ export const PermissionContextProvider = ({children}: any) => {
         
         requestPermission()
         .then(response => {
-            alert(response)
             if(response === 'granted') {
             changePermission('granted')
             }else{
@@ -40,7 +39,6 @@ export const PermissionContextProvider = ({children}: any) => {
             }
         })
         .catch((e) => {
-            alert(e.message)
             changePermission('error')
         })
     }
