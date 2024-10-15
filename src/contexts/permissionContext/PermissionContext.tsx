@@ -38,7 +38,7 @@ export const PermissionContextProvider = ({children}: any) => {
             changePermission('denied')
             }
         })
-        .catch((e) => {
+        .catch(() => {
             changePermission('error')
         })
     }

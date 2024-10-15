@@ -12,12 +12,7 @@ import { LoaderContext } from "./contexts/loaderContext/LoaderContext"
 import { PermissionContext } from "./contexts/permissionContext/PermissionContext"
 import RotationButtons from "./components/RotationButtons"
 import useDetectDevice from "./hooks/useDetectDevice"
-import gsap from "gsap"
-import { useGSAP } from "@gsap/react"
 import { LoadingComponent } from "./components/LoadingComponent"
-
-
-gsap.registerPlugin()
 
 
 function App() {

@@ -22,7 +22,7 @@ function useOrientationPermission() {
           setPermission('denied')
         }
       })
-      .catch((e) => {
+      .catch(() => {
         setPermission('error')
       })
     }
